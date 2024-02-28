@@ -5,7 +5,7 @@ from domain.schedule.dao.bus.BusScheduleDao import BusScheduleDao
 from domain.schedule.dao.train.TrainScheduleCacher import TrainScheduleCacher
 from domain.schedule.dao.train.TrainScheduleDao import TrainScheduleDao
 from domain.schedule.domain.train.TrainSchedule import TrainSchedule
-from app import exceptions
+from exceptions import PersistenceException
 
 
 class ScheduleQueryService:
@@ -29,7 +29,7 @@ class ScheduleQueryService:
 
         train_schedules = await self.train_schedule_dao.find_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
         if len(train_schedules) == 0:
-            raise exceptions.DataNotFound
+            raise PersistenceException.ResourceNotFoundException(msg='일치하는 기차 데이터를 찾을 수 없습니다')
 
         train_schedules.sort(key=lambda train_schedule: train_schedule.depart_time)
         self.train_schedule_cacher.set(cache_id, train_schedules)

@@ -10,8 +10,6 @@ from dependency_injector.wiring import inject, Provide
 from src.schedule_container import ScheduleContainer
 
 from domain.schedule.service.ScheduleQueryService import ScheduleQueryService
-from app import exceptions
-
 
 schedule_router = APIRouter(prefix='/schedule')
 
@@ -52,10 +50,9 @@ class BusScheduleResponse(BaseModel):
 @inject
 async def bus_schedule(direction: Direction = Query(description='조회할 방향'),
                        section: Section = Query(description='구분'),
-                       depart_datetime: datetime = Query(description='조회할 시간(yyyy-mm-ddTHH:MM:SS)', example='2024-01-09T15:30:00'),
+                       depart_datetime: datetime = Query(description='조회할 시간(yyyy-mm-ddTHH:MM:SS)', example=datetime.now()),
                        schedule_query_service: ScheduleQueryService = Depends(Provide[ScheduleContainer.schedule_query_service])):
     bus_schedules = schedule_query_service.get_bus_schedules(direction, section, depart_datetime)
-
     return {
         'direction': direction,
         'schedules': [bus_schedule.json for bus_schedule in bus_schedules]
@@ -86,9 +83,5 @@ async def query_train_schedule(depart_station_code: str = Query(description='출
                                arrive_station_code: str = Query(description='도착역 코드', example='NAT010000'),
                                depart_datetime: datetime = Query(description='출발 날짜(yyyy-mm-ddTHH:MM:SS)', example=datetime.now()),
                                schedule_query_service: ScheduleQueryService = Depends(Provide[ScheduleContainer.schedule_query_service])):
-    try:
-        train_schedules = await schedule_query_service.get_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
-    except exceptions.DataNotFound as error:
-        raise HTTPException(status_code=404, detail=error.json)
-
+    train_schedules = await schedule_query_service.get_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
     return {'schedules': [train_schedule.json for train_schedule in train_schedules]}
