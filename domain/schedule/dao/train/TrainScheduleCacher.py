@@ -1,9 +1,12 @@
+from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+
 import redis
 import json
-from abc import *
+
 from typing import List
-from domain.schedule.domain.train.TrainSchedule import TrainSchedule
 from datetime import datetime
+
+from abc import *
 
 
 class TrainScheduleCacher(metaclass=ABCMeta):

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from fastapi import Query, Depends
 from pydantic import BaseModel, Field
 
@@ -7,9 +7,8 @@ from enum import Enum
 from typing import List
 
 from dependency_injector.wiring import inject, Provide
-from src.schedule_container import ScheduleContainer
-
 from domain.schedule.service.ScheduleQueryService import ScheduleQueryService
+from src.schedule_container import ScheduleContainer
 
 schedule_router = APIRouter(prefix='/schedule')
 

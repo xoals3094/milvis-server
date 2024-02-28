@@ -1,10 +1,11 @@
-from datetime import datetime
-from typing import List
 from domain.schedule.domain.bus.BusSchedule import BusSchedule
 from domain.schedule.dao.bus.BusScheduleDao import BusScheduleDao
 from domain.schedule.dao.train.TrainScheduleCacher import TrainScheduleCacher
 from domain.schedule.dao.train.TrainScheduleDao import TrainScheduleDao
 from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+
+from datetime import datetime
+from typing import List
 from exceptions import PersistenceException
 
 

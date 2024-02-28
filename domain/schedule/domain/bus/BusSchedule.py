@@ -1,5 +1,5 @@
-from datetime import time
 from domain.schedule.domain.bus.Line import Line
+from datetime import time
 
 
 class BusSchedule:

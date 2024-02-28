@@ -1,12 +1,15 @@
+from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+
+from typing import List
+from datetime import datetime
+from functools import partial
+from abc import *
+from config.api import SERVICE_KEY
+
 import xml.etree.ElementTree as ET
 import requests
-from typing import List
-from functools import partial
 import asyncio
-from abc import *
-from datetime import datetime
-from domain.schedule.domain.train.TrainSchedule import TrainSchedule
-from config.api import SERVICE_KEY
+
 
 trains = [{'id': '00', 'name': 'KTX'}, {'id': '01', 'name': '새마을호'}, {'id': '02', 'name': '무궁화호'},
           {'id': '03', 'name': '통근열차'}, {'id': '04', 'name': '누리로'}, {'id': '06', 'name': 'AREX직통'},
