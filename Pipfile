@@ -8,11 +8,10 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 gunicorn = "*"
 requests = "*"
-pymysql = "*"
+pymongo = "*"
 redis = "*"
 cryptography = "*"
 dependency-injector = "*"
-pymysql-pooling="*"
 
 [dev-packages]
 
