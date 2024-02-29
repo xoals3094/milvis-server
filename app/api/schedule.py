@@ -25,7 +25,6 @@ class Section(str, Enum):
 
 
 class Line(BaseModel):
-    id: str = Field(title='출발 시간', examples=['MYB1'])
     name: str = Field(title='노선명', examples=['용성1'])
 
 
