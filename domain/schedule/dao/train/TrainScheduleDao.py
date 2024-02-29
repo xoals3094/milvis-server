@@ -11,6 +11,8 @@ import xml.etree.ElementTree as ET
 import requests
 import asyncio
 
+from exceptions import PersistenceException
+
 
 class TrainScheduleDao(metaclass=ABCMeta):
     @abstractmethod
@@ -24,6 +26,11 @@ class ExternalTrainScheduleDao(TrainScheduleDao):
         train_schedules = []
         for result in results:
             train_schedules += result
+
+        if len(train_schedules) == 0:
+            raise PersistenceException.ResourceNotFoundException(msg='일치하는 기차 데이터를 찾을 수 없습니다')
+
+        train_schedules.sort(key=lambda train_schedule: train_schedule.depart_time)
 
         return train_schedules
 
