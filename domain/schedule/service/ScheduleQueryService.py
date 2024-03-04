@@ -3,10 +3,10 @@ from domain.schedule.dao.bus.BusScheduleDao import BusScheduleDao
 from domain.schedule.dao.train.TrainScheduleCacher import TrainScheduleCacher
 from domain.schedule.dao.train.TrainScheduleDao import TrainScheduleDao
 from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+from domain.schedule.util import schedule_util
 
 from datetime import datetime
 from typing import List
-from exceptions import PersistenceException
 
 
 class ScheduleQueryService:
@@ -23,23 +23,13 @@ class ScheduleQueryService:
         return self.bus_schedule_dao.find_bus_schedule(direction, section, depart_time)
 
     async def get_train_schedules(self, depart_station_code, arrive_station_code, depart_datetime: datetime) -> List[TrainSchedule]:
-        cache_id = depart_station_code + arrive_station_code + depart_datetime.strftime('%Y%m%d')
-        train_schedules = self.train_schedule_cacher.get(cache_id)
+        train_schedules = self.train_schedule_cacher.get(depart_station_code, arrive_station_code, depart_datetime)
         if train_schedules is not None:
-            return self._slice_schedules(depart_datetime, train_schedules)
+            train_schedules = schedule_util.slicer(depart_datetime, train_schedules)
+            return train_schedules
 
         train_schedules = await self.train_schedule_dao.find_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
-        if len(train_schedules) == 0:
-            raise PersistenceException.ResourceNotFoundException(msg='일치하는 기차 데이터를 찾을 수 없습니다')
+        self.train_schedule_cacher.set(depart_station_code, arrive_station_code, depart_datetime, train_schedules)
 
-        train_schedules.sort(key=lambda train_schedule: train_schedule.depart_time)
-        self.train_schedule_cacher.set(cache_id, train_schedules)
-        return self._slice_schedules(depart_datetime, train_schedules)
-
-    def _slice_schedules(self, depart_datetime: datetime, train_schedules: List[TrainSchedule]):
-        depart_time = depart_datetime.time()
-        for i, train_schedule in enumerate(train_schedules):
-            if train_schedule.depart_time > depart_time:
-                return train_schedules[i:]
-
+        train_schedules = schedule_util.slicer(depart_datetime, train_schedules)
         return train_schedules

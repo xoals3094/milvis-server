@@ -11,11 +11,11 @@ from abc import *
 
 class TrainScheduleCacher(metaclass=ABCMeta):
     @abstractmethod
-    def get(self, cache_id):
+    def get(self, depart_station_code, arrive_station_code, depart_datetime: datetime):
         pass
 
     @abstractmethod
-    def set(self, cache_id, train_schedules):
+    def set(self, depart_station_code, arrive_station_code, depart_datetime: datetime, train_schedules):
         pass
 
 
@@ -23,7 +23,12 @@ class RedisTrainScheduleCacher(TrainScheduleCacher):
     def __init__(self, redis_connection: redis.StrictRedis):
         self.db = redis_connection
 
-    def get(self, cache_id):
+    def _create_cache_id(self, depart_station_code, arrive_station_code, depart_datetime: datetime):
+        return depart_station_code + arrive_station_code + depart_datetime.strftime('%Y%m%d')
+
+    def get(self, depart_station_code, arrive_station_code, depart_datetime: datetime):
+        cache_id = self._create_cache_id(depart_station_code, arrive_station_code, depart_datetime)
+
         train_schedules = self.db.get(cache_id)
         if train_schedules is None:
             return None
@@ -34,7 +39,9 @@ class RedisTrainScheduleCacher(TrainScheduleCacher):
 
         return [TrainSchedule.mapping(schedule_json) for schedule_json in schedules_json]
 
-    def set(self, cache_id, train_schedules: List[TrainSchedule]):
+    def set(self, depart_station_code, arrive_station_code, depart_datetime: datetime, train_schedules: List[TrainSchedule]):
+        cache_id = self._create_cache_id(depart_station_code, arrive_station_code, depart_datetime)
+
         train_schedules_json = []
         for train_schedule in train_schedules:
             train_schedule_json = train_schedule.json

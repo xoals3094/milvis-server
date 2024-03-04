@@ -2,14 +2,12 @@ from datetime import time
 
 
 class Line:
-    def __init__(self, id, name):
-        self.id = id
+    def __init__(self, name):
         self.name = name
 
     @property
     def json(self):
         return {
-            'id': self.id,
             'name': self.name
         }
 
@@ -35,7 +33,7 @@ class BusSchedule:
     @staticmethod
     def mapping(json):
         return BusSchedule(
-            line=Line(json['line']['_id'], json['line']['name']),
+            line=Line(json['line']['name']),
             depart_time=json['depart_time'],
             arrive_time=json['arrive_time'],
             direction=json['direction'],
