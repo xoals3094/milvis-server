@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import api_router
 from src.schedule_container import ScheduleContainer
-
+from app import error_handling
 datetime_format = "%Y-%m-%dT%H:%M:%S"
 
 origins = [
@@ -17,6 +17,7 @@ def create_app():
     ScheduleContainer()
 
     app = FastAPI()
+    error_handling.error_handling(app)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
