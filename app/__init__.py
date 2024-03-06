@@ -45,7 +45,7 @@ def create_app():
             milvis_logger.exception(msg, exc_info=e)
             raise e
 
-        msg = f'[{request.method}] {request.url}'
+        msg = f'[{request.method}] {request.url} {response.status_code}'
         milvis_logger.info(msg)
 
         return response
