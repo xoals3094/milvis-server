@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api import api_router
 from src.schedule_container import ScheduleContainer
 from app import error_handling
-from handler_setting import set_handler
+from .handler_setting import set_handler
 import logging
 datetime_format = "%Y-%m-%dT%H:%M:%S"
 
