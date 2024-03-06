@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import api_router
 from src.schedule_container import ScheduleContainer
@@ -48,5 +48,20 @@ def create_app():
         allow_headers=["*"],
     )
     app.include_router(api_router)
+
+    @app.middleware('http')
+    async def write_log(request: Request, call_next):
+        body = await request.body()
+        try:
+            response = await call_next(request)
+        except Exception as e:
+            msg = f'[{request.method}] {request.url}\n{body.decode()}'
+            milvis_logger.exception(msg, exc_info=e)
+            raise e
+
+        msg = f'[{request.method}] {request.url}'
+        milvis_logger.info(msg)
+
+        return response
 
     return app
