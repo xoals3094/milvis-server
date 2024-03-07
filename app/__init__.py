@@ -4,6 +4,7 @@ from app.api import api_router
 from src.schedule_container import ScheduleContainer
 from app import error_handling
 from .handler_setting import set_handler
+from etc.webhook import discord_webhook
 import logging
 datetime_format = "%Y-%m-%dT%H:%M:%S"
 
@@ -43,6 +44,7 @@ def create_app():
         except Exception as e:
             msg = f'[{request.method}] {request.url}\n{body.decode()}'
             milvis_logger.exception(msg, exc_info=e)
+            discord_webhook.send_webhook(request.url.path, request.method, e)
             raise e
 
         msg = f'[{request.method}] {request.url} {response.status_code}'
