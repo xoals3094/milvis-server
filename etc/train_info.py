@@ -4,6 +4,37 @@ trains = [
         'name': 'KTX'
     },
     {
+        'id': '02',
+        'name': '무궁화호'
+    },
+    {
+        'id': '04',
+        'name': '누리로'
+    },
+    {
+        'id': '07',
+        'name': 'KTX-산천(A-type)'
+    },
+    {
+        'id': '08',
+        'name': 'ITX-새마을'
+    },
+    {
+        'id': '10',
+        'name': 'KTX-산천(B-type)'
+    },
+    {
+        'id': '17',
+        'name': 'SRT'
+    }
+]
+
+all_trains = [
+    {
+        'id': '00',
+        'name': 'KTX'
+    },
+    {
         'id': '01',
         'name': '새마을호'
     },
