@@ -9,3 +9,8 @@ class PersistenceException(DefaultException):
 class ResourceNotFoundException(PersistenceException):
     def __init__(self, msg):
         super().__init__(msg=msg)
+
+
+class ConnectionException(PersistenceException):
+    def __init__(self, msg):
+        super().__init__(msg=msg)
