@@ -55,6 +55,9 @@ class ExternalTrainScheduleDao(TrainScheduleDao):
 
         root = ET.fromstring(res.text)
         body = root.find("body")
+        if body is None:
+            raise PersistenceException.ConnectionException(msg='api 서버 데이터를 얻어오지 못했습니다')
+
         items = body.find("items").findall('item')
 
         train_schedules = []
