@@ -1,8 +1,8 @@
-from domain.schedule.domain.bus.BusSchedule import BusSchedule
-from domain.schedule.dao.bus.BusScheduleDao import BusScheduleDao
-from domain.schedule.dao.train.TrainScheduleCacher import TrainScheduleCacher
-from domain.schedule.dao.train.TrainScheduleDao import TrainScheduleDao
-from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+from domain.schedule.dto.bus_schedule import BusSchedule
+from domain.schedule.dto.train_schedule import TrainSchedule
+from domain.schedule.dao.bus_schedule_dao import BusScheduleDao
+from domain.schedule.dao.train_schedule_cacher import TrainScheduleCacher
+from domain.schedule.dao.train_schedule_dao import TrainScheduleDao
 from domain.schedule.util import schedule_util
 
 from datetime import datetime

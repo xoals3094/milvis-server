@@ -1,4 +1,4 @@
-from domain.schedule.domain.bus.BusSchedule import BusSchedule
+from domain.schedule.dto.bus_schedule import BusSchedule
 from typing import List
 from datetime import datetime, time
 from abc import *

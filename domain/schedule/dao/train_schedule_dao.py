@@ -1,4 +1,4 @@
-from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+from domain.schedule.dto.train_schedule import TrainSchedule
 
 from typing import List
 from datetime import datetime
