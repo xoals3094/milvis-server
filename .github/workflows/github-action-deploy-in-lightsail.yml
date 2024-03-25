@@ -16,8 +16,7 @@ jobs:
         port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
         script: |
-          cd /home/ubuntu/projects/MilvisServer
+          cd /home/ubuntu/projects/milvis-server
           git pull
           sudo lsof -t -i tcp:8000 | xargs kill -9
-          cd fastapi
-          python3 -m gunicorn -k uvicorn.workers.UvicornWorker main:app --daemon --access-logfile ./gunicorn-access.log
+          sudo systemctl restart milvis
