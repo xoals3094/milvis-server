@@ -31,7 +31,8 @@ class RedisTrainScheduleCacher(TrainScheduleCacher):
 
         train_schedules = self.db.get(cache_id)
         if train_schedules is None:
-            return None
+            return []
+        
         schedules_json = json.loads(str(train_schedules))
         for schedule_json in schedules_json:
             schedule_json['depart_time'] = datetime.strptime(schedule_json['depart_time'], '%H%M%S').time()

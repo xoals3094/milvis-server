@@ -24,12 +24,10 @@ class ScheduleQueryService:
 
     async def get_train_schedules(self, depart_station_code, arrive_station_code, depart_datetime: datetime) -> List[TrainSchedule]:
         train_schedules = self.train_schedule_cacher.get(depart_station_code, arrive_station_code, depart_datetime)
-        if train_schedules is not None:
-            train_schedules = schedule_util.slicer(depart_datetime, train_schedules)
-            return train_schedules
 
-        train_schedules = await self.train_schedule_dao.find_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
-        self.train_schedule_cacher.set(depart_station_code, arrive_station_code, depart_datetime, train_schedules)
+        if len(train_schedules) == 0:
+            train_schedules = await self.train_schedule_dao.find_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
+            self.train_schedule_cacher.set(depart_station_code, arrive_station_code, depart_datetime, train_schedules)
 
         train_schedules = schedule_util.slicer(depart_datetime, train_schedules)
         return train_schedules
