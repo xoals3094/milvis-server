@@ -7,7 +7,7 @@ from enum import Enum
 from typing import List
 
 from dependency_injector.wiring import inject, Provide
-from domain.schedule.service.ScheduleQueryService import ScheduleQueryService
+from domain.schedule.service.schedule_query_service import ScheduleQueryService
 from src.schedule_container import ScheduleContainer
 
 schedule_router = APIRouter(prefix='/schedule')

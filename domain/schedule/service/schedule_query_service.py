@@ -1,8 +1,8 @@
-from domain.schedule.domain.bus.BusSchedule import BusSchedule
-from domain.schedule.dao.bus.BusScheduleDao import BusScheduleDao
-from domain.schedule.dao.train.TrainScheduleCacher import TrainScheduleCacher
-from domain.schedule.dao.train.TrainScheduleDao import TrainScheduleDao
-from domain.schedule.domain.train.TrainSchedule import TrainSchedule
+from domain.schedule.dto.bus_schedule import BusSchedule
+from domain.schedule.dto.train_schedule import TrainSchedule
+from domain.schedule.dao.bus_schedule_dao import BusScheduleDao
+from domain.schedule.dao.train_schedule_cacher import TrainScheduleCacher
+from domain.schedule.dao.train_schedule_dao import TrainScheduleDao
 from domain.schedule.util import schedule_util
 
 from datetime import datetime
@@ -24,12 +24,10 @@ class ScheduleQueryService:
 
     async def get_train_schedules(self, depart_station_code, arrive_station_code, depart_datetime: datetime) -> List[TrainSchedule]:
         train_schedules = self.train_schedule_cacher.get(depart_station_code, arrive_station_code, depart_datetime)
-        if train_schedules is not None:
-            train_schedules = schedule_util.slicer(depart_datetime, train_schedules)
-            return train_schedules
 
-        train_schedules = await self.train_schedule_dao.find_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
-        self.train_schedule_cacher.set(depart_station_code, arrive_station_code, depart_datetime, train_schedules)
+        if len(train_schedules) == 0:
+            train_schedules = await self.train_schedule_dao.find_train_schedules(depart_station_code, arrive_station_code, depart_datetime)
+            self.train_schedule_cacher.set(depart_station_code, arrive_station_code, depart_datetime, train_schedules)
 
         train_schedules = schedule_util.slicer(depart_datetime, train_schedules)
         return train_schedules

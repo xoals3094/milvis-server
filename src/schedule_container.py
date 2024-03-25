@@ -3,10 +3,10 @@ from pymongo import MongoClient
 from redis import StrictRedis
 from dependency_injector import containers, providers
 from config import redis
-from domain.schedule.dao.bus.BusScheduleDao import MongoDBBusScheduleDao
-from domain.schedule.dao.train.TrainScheduleDao import ExternalTrainScheduleDao
-from domain.schedule.dao.train.TrainScheduleCacher import RedisTrainScheduleCacher
-from domain.schedule.service.ScheduleQueryService import ScheduleQueryService
+from domain.schedule.dao.bus_schedule_dao import MongoDBBusScheduleDao
+from domain.schedule.dao.train_schedule_dao import ExternalTrainScheduleDao
+from domain.schedule.dao.train_schedule_cacher import RedisTrainScheduleCacher
+from domain.schedule.service.schedule_query_service import ScheduleQueryService
 
 
 class ScheduleContainer(containers.DeclarativeContainer):
