@@ -1,7 +1,8 @@
 # 버스/기차 시간 비교 서비스 - Milvis
 
 부산대학교 밀양캠퍼스는 외진 지역에 위치해 있어 접근성이 좋지 않습니다. 교통수단 또한 제한적이며, 부산에 거주하는 학생들은 주로 버스와 기차를 이용해 통학합니다. 그러나 버스 운행 시간은 기차 시간과 연계되지 않아, 기차 시간표를 미리 확인하지 않고 버스를 탑승하면 기차보다 일찍 도착해 대기해야 하는 상황이 발생하기도 합니다.
-![image (6)](https://github.com/user-attachments/assets/bfa282fe-bb6e-4cec-831e-f305e7926132)
+
+<img src="https://github.com/user-attachments/assets/bfa282fe-bb6e-4cec-831e-f305e7926132" style="width: 500px"/>
 
 이러한 상황을 피하기 위해 학생들은 자신의 일정에 맞춰 버스 시간과 기차 시간을 비교하고, 대기 시간이 짧은 교통편을 선택해 탑승합니다. 하지만 매번 버스와 기차 시간을 직접 확인하고, 대기 시간을 계산해야 하기 때문에 번거로움이 따릅니다.
 
@@ -36,10 +37,10 @@ Milvis 는 아이언맨의 비서인 자비스에서 따온 이름으로,
 이런 불편함을 줄이기 버스와 기차 시간을 한꺼번에 확인해서 환승을 돕는 기능을 만들었어요.
 
 
-
-![KakaoTalk_Photo_2024-02-06-14-32-58 004](https://github.com/DogLegBirdLeg/Milvis-Front/assets/80307321/ffd1e202-8bfa-4598-94ba-4963946c60a6)
-
-![KakaoTalk_Photo_2024-02-06-14-32-58 001](https://github.com/DogLegBirdLeg/Milvis-Front/assets/80307321/c46fe409-0cd4-429a-8c5d-18aedcde7f4b)
+<div align="center">
+   <img src="https://github.com/DogLegBirdLeg/Milvis-Front/assets/80307321/ffd1e202-8bfa-4598-94ba-4963946c60a6" />
+   <img src="https://github.com/DogLegBirdLeg/Milvis-Front/assets/80307321/c46fe409-0cd4-429a-8c5d-18aedcde7f4b" />
+</div>
 
 
 ### 🚎 2. 기존 버스 시간표 UI 개선
